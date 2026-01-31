@@ -1,0 +1,28 @@
+{
+    "name": "remotion-editor",
+    "version": "1.0.0",
+    "description": "Remotion project for AI Affiliate Machine (VN & Global)",
+    "scripts": {
+        "start": "remotion preview",
+        "build": "remotion render",
+        "render:vn": "remotion render VN-Automation out/vn-video.mp4",
+        "render:global": "remotion render Global-AI out/global-video.mp4",
+        "render:vn-intro": "remotion render VN-Intro-Sample out/intro-vn.mp4",
+        "render:vn-outro": "remotion render VN-Outro-Sample out/outro-vn.mp4",
+        "render:global-intro": "remotion render Global-Intro-Sample out/intro-en.mp4",
+        "render:global-outro": "remotion render Global-Outro-Sample out/outro-en.mp4"
+    },
+    "dependencies": {
+        "remotion": "latest",
+        "@remotion/cli": "latest",
+        "@remotion/video": "latest",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
+        "lucide-react": "latest"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "typescript": "^4.9.0"
+    }
+}
