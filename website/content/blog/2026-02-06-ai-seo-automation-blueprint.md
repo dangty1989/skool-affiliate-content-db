@@ -11,16 +11,33 @@ description: "Stop wasting time on manual content. Here is the battle-tested blu
 
 ![AI SEO & Automation Blueprint](/images/n8n_growth_machine.png)
 
-> ### 🛠️ THE MODULAR BLUEPRINT: FROM DATA TO PROFIT
-> 
-> | STAGE | ACTION | KEY TOOLS | OUTCOME |
-> | :--- | :--- | :--- | :--- |
-> | **1. SCRAPE** | Mine Data & ADS | Apify, Meta Ads Library | High-Intent Sources |
-> | **2. THINK** | Context & Drafting | Claude, GPT-4o, Gemini | Information-Dense Drafts |
-> | **3. BUILD** | Auto Workflow | **n8n.io**, Trigger.dev | 24/7 Content Flywheel |
-> | **4. PROFIT** | Monetize Traffic | Skool, Affiliate Links | **Passive Revenue** |
-> 
+---
+
+### 🛠️ THE MODULAR BLUEPRINT: FROM DATA TO PROFIT
+
+*   **STAGE 1: SCRAPE (Mining Data & Ads)**
+    *   **Action:** Extract high-converting hooks and data.
+    *   **Tools:** Apify, Meta Ads Library.
+    *   **Outcome:** High-Intent Sources.
+
+*   **STAGE 2: THINK (Context & Drafting)**
+    *   **Action:** Turn raw data into information-dense content.
+    *   **Tools:** Claude 3.5 Sonnet, GPT-4o, Gemini.
+    *   **Outcome:** High-Quality Drafts.
+
+*   **STAGE 3: BUILD (Automated Workflow)**
+    *   **Action:** Connect everything into a 24/7 system.
+    *   **Tools:** **n8n.io**, Trigger.dev.
+    *   **Outcome:** 24/7 Content Flywheel.
+
+*   **STAGE 4: PROFIT (Monetize Traffic)**
+    *   **Action:** Drive traffic to high-ticket offers.
+    *   **Tools:** Skool, Affiliate Links.
+    *   **Outcome:** **Passive Revenue Machine.**
+
 > *"The Flywheel never stops spinning. Once it starts, it builds its own momentum."*
+
+---
 
 **You’re wasting your most valuable asset if you’re still writing content manually.**
 
