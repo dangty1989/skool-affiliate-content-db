@@ -11,35 +11,16 @@ description: "Stop wasting time on manual content. Here is the battle-tested blu
 
 ![AI SEO & Automation Blueprint](/images/n8n_growth_machine.png)
 
-<div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 30px; border-radius: 15px; border: 1px solid #4ecca3; margin: 20px 0; color: white; font-family: sans-serif;">
-    <h3 style="text-align: center; color: #4ecca3; margin-top: 0;">🛠️ THE MODULAR BLUEPRINT INFOGRAPHIC</h3>
-    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;">
-        <div style="text-align: center; border: 1px solid #30475e; padding: 15px; border-radius: 10px; background: #0f3460; width: 120px;">
-            <div style="font-size: 24px;">🔍</div>
-            <div style="font-weight: bold; font-size: 14px; margin-top: 5px;">Scrape</div>
-            <div style="font-size: 10px; opacity: 0.8;">Data & Ads</div>
-        </div>
-        <div style="font-size: 20px; color: #4ecca3;">➔</div>
-        <div style="text-align: center; border: 1px solid #30475e; padding: 15px; border-radius: 10px; background: #0f3460; width: 120px;">
-            <div style="font-size: 24px;">🧠</div>
-            <div style="font-weight: bold; font-size: 14px; margin-top: 5px;">AI Think</div>
-            <div style="font-size: 10px; opacity: 0.8;">Context & Draft</div>
-        </div>
-        <div style="font-size: 20px; color: #4ecca3;">➔</div>
-        <div style="text-align: center; border: 1px solid #30475e; padding: 15px; border-radius: 10px; background: #e94560; width: 120px;">
-            <div style="font-size: 24px;">⚙️</div>
-            <div style="font-weight: bold; font-size: 14px; margin-top: 5px;">n8n Build</div>
-            <div style="font-size: 10px; opacity: 0.8;">Auto Workflow</div>
-        </div>
-        <div style="font-size: 20px; color: #4ecca3;">➔</div>
-        <div style="text-align: center; border: 1px solid #30475e; padding: 15px; border-radius: 10px; background: #4ecca3; width: 120px; color: #1a1a2e;">
-            <div style="font-size: 24px;">💰</div>
-            <div style="font-weight: bold; font-size: 14px; margin-top: 5px;">Profit</div>
-            <div style="font-size: 10px; opacity: 1;">Affiliate Cash</div>
-        </div>
-    </div>
-    <p style="text-align: center; font-style: italic; font-size: 12px; margin-top: 20px; opacity: 0.7;">"The Flywheel never stops spinning. Once it starts, it builds its own momentum."</p>
-</div>
+> ### 🛠️ THE MODULAR BLUEPRINT: FROM DATA TO PROFIT
+> 
+> | STAGE | ACTION | KEY TOOLS | OUTCOME |
+> | :--- | :--- | :--- | :--- |
+> | **1. SCRAPE** | Mine Data & ADS | Apify, Meta Ads Library | High-Intent Sources |
+> | **2. THINK** | Context & Drafting | Claude, GPT-4o, Gemini | Information-Dense Drafts |
+> | **3. BUILD** | Auto Workflow | **n8n.io**, Trigger.dev | 24/7 Content Flywheel |
+> | **4. PROFIT** | Monetize Traffic | Skool, Affiliate Links | **Passive Revenue** |
+> 
+> *"The Flywheel never stops spinning. Once it starts, it builds its own momentum."*
 
 **You’re wasting your most valuable asset if you’re still writing content manually.**
 
