@@ -92,25 +92,25 @@ export default function Home() {
                 🔥 FLASH SALE: 30% OFF
               </div>
               <h2 className="text-4xl md:text-5xl font-black leading-tight">
-                Phòng Họp Lợi Nhuận <span className="hero-gradient">AI Profit Lab</span>
+                The <span className="hero-gradient">AI Profit Lab</span> Boardroom
               </h2>
               <div className="space-y-4 text-gray-400 text-lg leading-relaxed">
-                <p>Trí tuệ nhân tạo đang giết chết các ngành công nghiệp chỉ sau một đêm. Trong khi đối thủ vẫn đang mày mò, bạn hãy <strong>KIẾM LỢI NHUẬN</strong> từ hệ thống trị giá $300k/tháng của tôi.</p>
+                <p>Artificial Intelligence is killing industries overnight. While your competitors are still playing with simple prompts, you can <strong>PROFIT</strong> from my personal $300k/mo AI tech systems.</p>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3 text-white font-medium">
-                    <span className="text-blue-500">✅</span> Tự động thu thập hàng nghìn khách hàng tiềm năng
+                    <span className="text-blue-500">✅</span> Automate thousands of laser-targeted leads
                   </li>
                   <li className="flex items-center gap-3 text-white font-medium">
-                    <span className="text-blue-500">✅</span> Nội dung Avatar AI mang lại $600/ngày
+                    <span className="text-blue-500">✅</span> Run AI Avatar content proven to bank $600/day
                   </li>
                   <li className="flex items-center gap-3 text-white font-medium">
-                    <span className="text-blue-500">✅</span> Kho 1000+ quy trình n8n tích hợp sẵn
+                    <span className="text-blue-500">✅</span> Access 1,000+ built-in n8n automation workflows
                   </li>
                 </ul>
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
                 <Link href="https://www.skool.com/ai-profit-lab-7462/about" className="w-full sm:w-auto text-center bg-blue-600 text-white px-10 py-5 rounded-full font-black text-xl hover:bg-blue-500 transition-all shadow-xl shadow-blue-600/20">
-                  THAM GIA $59/THÁNG
+                  JOIN FOR $59/MO
                 </Link>
                 <div className="text-center sm:text-left">
                   <p className="text-sm font-bold text-gray-500 line-through">Daily Plan: $71</p>
