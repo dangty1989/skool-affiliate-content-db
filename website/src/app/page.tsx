@@ -80,6 +80,63 @@ export default function Home() {
         ))}
       </section>
 
+      {/* AI Profit Lab Boardroom Highlight */}
+      <section className="px-4">
+        <div className="relative overflow-hidden rounded-[2rem] border border-blue-500/30 bg-[#0a0a0a] p-8 md:p-12 shadow-2xl">
+          <div className="absolute top-0 right-0 -mt-20 -mr-20 h-96 w-96 rounded-full bg-blue-600/10 blur-[100px]"></div>
+          <div className="absolute bottom-0 left-0 -mb-20 -ml-20 h-96 w-96 rounded-full bg-blue-400/5 blur-[100px]"></div>
+
+          <div className="relative flex flex-col lg:flex-row gap-12 items-center">
+            <div className="flex-1 space-y-8">
+              <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-sm tracking-widest uppercase">
+                🔥 FLASH SALE: 30% OFF
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black leading-tight">
+                Phòng Họp Lợi Nhuận <span className="hero-gradient">AI Profit Lab</span>
+              </h2>
+              <div className="space-y-4 text-gray-400 text-lg leading-relaxed">
+                <p>Trí tuệ nhân tạo đang giết chết các ngành công nghiệp chỉ sau một đêm. Trong khi đối thủ vẫn đang mày mò, bạn hãy <strong>KIẾM LỢI NHUẬN</strong> từ hệ thống trị giá $300k/tháng của tôi.</p>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-white font-medium">
+                    <span className="text-blue-500">✅</span> Tự động thu thập hàng nghìn khách hàng tiềm năng
+                  </li>
+                  <li className="flex items-center gap-3 text-white font-medium">
+                    <span className="text-blue-500">✅</span> Nội dung Avatar AI mang lại $600/ngày
+                  </li>
+                  <li className="flex items-center gap-3 text-white font-medium">
+                    <span className="text-blue-500">✅</span> Kho 1000+ quy trình n8n tích hợp sẵn
+                  </li>
+                </ul>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
+                <Link href="https://www.skool.com/ai-profit-lab-7462/about" className="w-full sm:w-auto text-center bg-blue-600 text-white px-10 py-5 rounded-full font-black text-xl hover:bg-blue-500 transition-all shadow-xl shadow-blue-600/20">
+                  THAM GIA $59/THÁNG
+                </Link>
+                <div className="text-center sm:text-left">
+                  <p className="text-sm font-bold text-gray-500 line-through">Daily Plan: $71</p>
+                  <p className="text-blue-400 font-bold">SALE PRICE: $59/mo</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full lg:w-[400px] glass p-6 rounded-3xl border-white/10 space-y-6">
+              <div className="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/5">
+                <span className="text-gray-400 font-bold text-sm">Members</span>
+                <span className="text-white font-black text-lg">2.3k</span>
+              </div>
+              <div className="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/5">
+                <span className="text-gray-400 font-bold text-sm">Monthly Bonus</span>
+                <span className="text-green-400 font-black text-lg">+$8,000</span>
+              </div>
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-blue-500/20">
+                <p className="text-sm text-center font-bold text-blue-300">Updated: Feb 7, 2026</p>
+                <p className="text-[10px] text-center text-gray-500 mt-2 uppercase tracking-tighter">7-Day Money Back Guarantee</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Blog Listing Segment */}
       <section id="insights" className="py-12 border-t border-white/5">
         <div className="flex justify-between items-end mb-12">
