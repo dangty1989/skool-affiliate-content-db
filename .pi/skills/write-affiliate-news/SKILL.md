@@ -1,6 +1,6 @@
 # Skill: Write AI News with Affiliate Intelligence
 
-**Purpose:** Generate SEO-optimized AI news articles with naturally integrated affiliate links
+**Purpose:** Generate SEO-optimized AI news articles with naturally integrated affiliate links for a GLOBAL audience.
 
 ---
 
@@ -16,191 +16,109 @@ Use this skill when you need to:
 
 ## Required Inputs
 
-1. **Target Market:** EU (morning) or US (evening)
-2. **Time Window:** "Last 12 hours" or specific date range
-3. **Topic Preference:** (optional) Specific AI domain to focus on
+1. **Target Market:** EU (morning) or US (evening) -> Always write in English.
+2. **Current Date:** For file naming and context
 
 ---
 
-## Step-by-Step Process
+## Workflow Steps
 
-### Step 1: News Discovery & Research
+### Step 1: Fetch Latest News
 
-**Run the RSS Feed Aggregator:**
-
+Run the Python script to scrape top AI news sources:
 ```bash
-# Fetch AI news from the last 24 hours
 python .pi/scripts/fetch-ai-news.py
 ```
 
-This script automatically fetches news from:
-- ✅ **OpenAI Blog** - Company announcements, research
-- ✅ **Google AI Blog** - Technical research, product updates
-- ✅ **Hugging Face Blog** - Open-source models, community
-- ✅ **TechCrunch AI** - Industry news, funding, companies
-- ✅ **The Verge AI** - Consumer tech perspective
-- ✅ **MIT Technology Review** - Deep analysis, ethics
+This will generate `logs/latest-ai-news.json`. Read this file to see top stories.
 
-**Output:** JSON file at `.pi/scripts/latest-ai-news.json` containing:
-- All articles from the time window
-- Source, title, link, description, publication date
-- Sorted by recency (newest first)
+### Step 2: Select the Best Story
 
-**Read the results:**
-```bash
-# View the full JSON output
-cat .pi/scripts/latest-ai-news.json
-```
+Criteria for selection:
+- **Impact:** Is this a major breakthrough or just a minor update?
+- **Relevance:** Does it matter to creators, marketers, or developers?
+- **Affiliate Potential:** Can we naturally mention our tools (e.g. video AI news -> HeyGen)?
 
-**Select Your Article Topic:**
+### Step 3: Match Affiliate Products
 
-From the fetched news, choose ONE article that:
-- **Significance:** High impact on AI industry
-- **Timeliness:** Within the specified time window
-- **Audience fit:** Relevant to target market (EU vs US)
-- **Uniqueness:** Not already covered in morning article (if evening job)
-- **Interest level:** Would make readers want to click and read
+Check `.pi/knowledge/affiliate-products.md`.
+- If news is about "Video AI" -> Recommend **HeyGen**.
+- If news is about "LLMs/Chatbots" -> Recommend **ChatGPT Team** or **Claude**.
+- If news is about "Automation" -> Recommend **Make**.
+- If news is about "Web/Code" -> Recommend **Lovable**.
 
----
-
-### Step 2: Deep Research
-
-Once you've selected the primary topic:
-
-1. **Read primary sources:** Official announcements, papers, press releases
-2. **Gather expert takes:** Twitter/X posts from researchers, industry commentary
-3. **Find related context:** How does this connect to broader AI trends?
-4. **Collect stats/data:** Performance metrics, market data if relevant
-5. **Note credible quotes:** From researchers, company leaders, analysts
-
----
-
-### Step 3: Affiliate Product Matching
-
-**Read the affiliate database:**
-```bash
-cat .pi/knowledge/affiliate-products.md
-```
-
-**Match products to article topic:**
-
-Based on article content, select 2-3 relevant products. Use the matching rules in the database.
-
----
+**Rule:** If no product fits naturally, DO NOT FORCE IT.
 
 ### Step 4: Write the Article
 
-Use this Markdown template structure:
+## 4. Content Guidelines
 
+### Writing Style (CRITICAL FOR READABILITY):
+- **Format:** "Smart Curator" / "Influencer" style. 
+- **Paragraphs:** SUPER SHORT. 1-3 sentences maximum. Break up text frequently.
+- **Formatting:** Use **bold** liberally to highlight key phrases and takeaways.
+- **Lists:** Use bullet points for features, reasons, or benefits.
+- **Headers:** Add emojis to H2/H3 headers (e.g., "## 🚀 What Happened").
+- **Images:** MANDATORY. Find an image URL from the source news or use a relevant Unsplash placeholder.
+
+### Article Structure:
 ```markdown
 ---
-title: "Your SEO-Optimized Title Here"
+title: "Catchy SEO-Optimized Title (English)"
 date: YYYY-MM-DD
-author: "AI News Desk"
-tags: [AI, Machine Learning, relevant-tags]
-description: "Compelling 150-160 character meta description"
+author: AI News Desk
+category: AI Technology
+tags: [Relevant, SEO, Keywords]
+description: "Compelling meta description in English (Under 160 chars)"
+image: "URL_TO_IMAGE" 
 ---
 
-# Main Headline
+# Main Title
 
-**[Opening hook - 1-2 sentences capturing the news in an engaging way]**
+![Alt Text for Image](URL_TO_IMAGE)
 
-## What Happened
+**Hook:** A single punchy sentence summarizing the big news.
 
-[2-3 paragraphs explaining the core news/development]
+[Short paragraph explaining context]
 
-## Why It Matters
+## 🚀 The News
 
-[Analysis of significance and impact]
+**Key breakdown:**
+- Point 1
+- Point 2
+- Point 3
 
-## The Details
+[Short analysis paragraph]
 
-[Technical details, how it works, key features]
+## 💡 Why It Matters
 
-## What's Next
+**Impact:** Explain why the reader should care. Use **bold** for emphasis.
 
-[Future implications, what to watch for]
+## 🔗 Related Developments
 
-## Conclusion
+...
 
-[Wrap up with key takeaways]
+## 🏁 Conclusion
 
----
-
-*Stay ahead of AI developments. [Natural CTA for newsletter/updates if applicable]*
+Final thoughts and Call-to-Action.
 ```
 
-**Writing Guidelines:**
-- Length: 800-1200 words
-- Use H2 headers for sections
-- Include relevant keywords naturally
-- Add 1-2 affiliate links per 400 words (max 3 total)
-- Place links contextually where they add value
-- Use unique anchor text (not "click here")
+### Affiliate Link Integration Rules:
+1. **2-3 links maximum per article** (avoid spam)
+2. **Contextual relevance is mandatory** (use affiliate-products.md matching rules)
+3. **Value-first approach** (solve problems, then recommend tools)
+4. **Natural language** (no "BUY NOW!" aggressive marketing)
+5. **Strategic placement** (body sections and conclusion work best)
 
 ---
 
-### Step 5: Quality Assurance
+## Output Naming Convention
 
-Before publishing, verify:
-- ✅ All facts are accurate and sourced
-- ✅ Affiliate links are natural and relevant
-- ✅ No spelling/grammar errors
-- ✅ Proper SEO elements (title, meta, headers)
-- ✅ Engaging and readable for target audience
+**Crucial Step:** 
+1. Create a concise, SEO-friendly **English slug** based on the title.
+2. Format: lowercase, no special characters, dash-separated.
+3. Save file as: `website/content/blog/YYYY-MM-DD-english-slug.md`
 
----
-
-### Step 6: Publish
-
-Save the article to:
-```
-website/content/blog/YYYY-MM-DD-descriptive-slug.md
-```
-
-Filename format:
-- Morning (EU): `2026-02-13-topic-name.md`
-- Evening (US): `2026-02-13-topic-name-us.md`
-
-Then commit and push:
-```bash
-git add website/content/blog/
-git commit -m "Add AI news: [Brief headline]"
-git push origin main
-```
-
----
-
-## Example Workflow
-
-```bash
-# 1. Fetch news
-python .pi/scripts/fetch-ai-news.py
-
-# 2. Review top stories
-cat .pi/scripts/latest-ai-news.json
-
-# 3. Read affiliate products
-cat .pi/knowledge/affiliate-products.md
-
-# 4. Write article (use AI to generate based on selected topic)
-
-# 5. Save to blog directory
-# (filename: website/content/blog/2026-02-13-openai-launches-new-model.md)
-
-# 6. Commit and push
-git add website/content/blog/2026-02-13-openai-launches-new-model.md
-git commit -m "Add AI news: OpenAI Launches Revolutionary New Model"
-git push origin main
-```
-
----
-
-## Success Metrics
-
-After publishing, track:
-- Article published successfully to repo
-- Proper front matter and formatting
-- 2-3 relevant affiliate links included
-- SEO-optimized (proper title, meta, headers)
-- Engaging and valuable content for readers
+**Example:**
+- Topic: "OpenAI releases new model"
+- Filename: `website/content/blog/2026-02-13-openai-new-model.md`
