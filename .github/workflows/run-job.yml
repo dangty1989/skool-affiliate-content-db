@@ -55,6 +55,18 @@ jobs:
             echo "description=Process Telegram command" >> $GITHUB_OUTPUT
           fi
 
+      - name: Create Job Description File
+        run: |
+          JOB_ID=$(cat /proc/sys/kernel/random/uuid)
+          echo "JOB_ID=${JOB_ID}" >> $GITHUB_ENV
+          mkdir -p logs/${JOB_ID}
+          echo "${{ steps.job-type.outputs.description }}" > logs/${JOB_ID}/job.md
+          git add logs/${JOB_ID}/job.md
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Create job description for ${JOB_ID}" || true
+          git push || true
+
       - name: Run AI News Bot
         env:
           # OpenAI Configuration
