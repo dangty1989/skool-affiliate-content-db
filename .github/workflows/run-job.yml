@@ -90,6 +90,9 @@ jobs:
           
           # Docker Image
           IMAGE_URL: ${{ vars.IMAGE_URL }}
+          
+          # Debug
+          DEBUG: "true"
         run: |
           # Determine which Docker image to use
           if [ -n "$IMAGE_URL" ]; then

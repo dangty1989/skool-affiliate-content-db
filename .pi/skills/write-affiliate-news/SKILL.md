@@ -30,10 +30,10 @@ Use this skill when you need to:
 
 ```bash
 # Fetch AI news from the last 12 hours (for morning run)
-node .pi/scripts/fetch-ai-news.js 12
+python .pi/scripts/fetch-ai-news.py
 
 # OR fetch from last 24 hours (for comprehensive coverage)
-node .pi/scripts/fetch-ai-news.js 24
+python .pi/scripts/fetch-ai-news.py
 ```
 
 This script automatically fetches news from:
