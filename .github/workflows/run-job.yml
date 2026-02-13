@@ -37,15 +37,15 @@ jobs:
           
           if [ "${{ github.event_name }}" == "schedule" ]; then
             if [ "${{ github.event.schedule }}" == "0 9 * * *" ]; then
-              DESC="URGENT: Run 'python .pi/scripts/fetch-ai-news.py' immediately to fetch morning news. Then pick the top story and write a 1000-word article for EU audience using the 'write-affiliate-news' skill guidelines. Save to website/content/blog/"
+              DESC="URGENT: Run 'node .pi/scripts/fetch-ai-news.js' immediately to fetch morning news. Then pick the top story and write a 1000-word article for EU audience using the 'write-affiliate-news' skill guidelines. Save to website/content/blog/"
             else
-              DESC="URGENT: Run 'python .pi/scripts/fetch-ai-news.py' immediately to fetch evening news. Then pick the top story and write a 1000-word article for US audience using the 'write-affiliate-news' skill guidelines. Save to website/content/blog/"
+              DESC="URGENT: Run 'node .pi/scripts/fetch-ai-news.js' immediately to fetch evening news. Then pick the top story and write a 1000-word article for US audience using the 'write-affiliate-news' skill guidelines. Save to website/content/blog/"
             fi
           elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             if [ -n "${{ inputs.job_description }}" ]; then
               DESC="${{ inputs.job_description }}"
             else
-              DESC="URGENT: Execute the 'write-affiliate-news' skill now. 1) Run 'python .pi/scripts/fetch-ai-news.py'. 2) Read 'logs/latest-ai-news.json'. 3) Write a 1000-word blog post about the top story. 4) Save to website/content/blog/YYYY-MM-DD-slug.md"
+              DESC="URGENT: Execute the 'write-affiliate-news' skill now. 1) Run 'node .pi/scripts/fetch-ai-news.js'. 2) Read 'logs/latest-ai-news.json'. 3) Write a 1000-word blog post about the top story. 4) Save to website/content/blog/YYYY-MM-DD-slug.md"
             fi
           else
             DESC="Process incoming job request"
