@@ -74,7 +74,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           
           # Repository Info
-          REPO_URL: "https://github.com/dangty1989/skool-affiliate-content-db.git"
+          REPO_URL: "https://${{ secrets.GH_TOKEN }}@github.com/dangty1989/skool-affiliate-content-db.git"
           BRANCH: "main"
           
           # Job Info
