@@ -1,0 +1,1 @@
+URGENT: Execute the 'write-affiliate-news' skill now. 1) Run 'python .pi/scripts/fetch-ai-news.py'. 2) Read 'logs/latest-ai-news.json'. 3) Write a 1000-word blog post about the top story. 4) Save to website/content/blog/YYYY-MM-DD-slug.md
