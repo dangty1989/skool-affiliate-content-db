@@ -1,0 +1,5 @@
+{
+  "watch": [".", ".env", "../operating_system"],
+  "ext": "js,json,env,md",
+  "ignore": ["node_modules"]
+}

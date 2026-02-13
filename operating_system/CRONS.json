@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Morning AI News (EU Market)",
+    "schedule": "0 9 * * *",
+    "timezone": "UTC",
+    "type": "agent",
+    "job": "Scan AI news from the last 12 hours and write a comprehensive SEO-optimized article for the European audience. Focus on the most significant AI development, trend, or breakthrough. Target length: 800-1200 words. Include 2-3 relevant affiliate links naturally based on article topic. Save to website/content/blog/ with filename format: YYYY-MM-DD-descriptive-slug.md"
+  },
+  {
+    "name": "Evening AI News (US Market)",
+    "schedule": "0 13 * * *",
+    "timezone": "UTC",
+    "type": "agent",
+    "job": "Scan AI news from the last 12 hours and write a comprehensive SEO-optimized article for the US audience. Select a DIFFERENT topic than the morning article to provide variety. Target length: 800-1200 words. Include 2-3 relevant affiliate links naturally based on article topic. Save to website/content/blog/ with filename format: YYYY-MM-DD-descriptive-slug-us.md"
+  }
+]

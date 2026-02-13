@@ -41,3 +41,11 @@ artifacts/n8n_workflows/*.json
 *.swp
 *.swo
 *~
+
+# PopeBot specific
+/tmp/
+logs/
+*.log
+.pi/tmp/
+event_handler/.env
+event_handler/node_modules/
