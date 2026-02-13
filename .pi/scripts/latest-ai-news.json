@@ -1,0 +1,135 @@
+{
+  "generated": "2026-02-13T09:53:11.598Z",
+  "hoursBack": 24,
+  "totalArticles": 773,
+  "recentArticles": 13,
+  "errors": [
+    {
+      "source": "OpenAI Blog",
+      "error": "HTTP 307 for https://openai.com/blog/rss.xml"
+    },
+    {
+      "source": "Google AI Blog",
+      "error": "HTTP 404 for https://ai.googleblog.com/feeds/posts/default"
+    }
+  ],
+  "news": [
+    {
+      "source": "TechCrunch AI",
+      "title": "Amid disappointing earnings, Pinterest claims it sees more searches than ChatGPT",
+      "link": "https://techcrunch.com/2026/02/12/amid-disappointing-earnings-pinterest-claims-it-sees-more-searches-than-chatgpt/",
+      "description": "Pinterest's stock tumbles after an earnings miss, with higher-than-expected usage its only bright spot.",
+      "pubDate": "2026-02-12T23:26:56.000Z",
+      "timestamp": 1770938816000,
+      "category": "Industry News"
+    },
+    {
+      "source": "TechCrunch AI",
+      "title": "IBM will hire your entry-level talent in the age of AI",
+      "link": "https://techcrunch.com/2026/02/12/ibm-will-hire-your-entry-level-talent-in-the-age-of-ai/",
+      "description": "IBM plans to triple its entry-level hiring in the U.S. in 2026, but these jobs will have different tasks than in previous years.",
+      "pubDate": "2026-02-12T23:23:17.000Z",
+      "timestamp": 1770938597000,
+      "category": "Industry News"
+    },
+    {
+      "source": "TechCrunch AI",
+      "title": "Musk needed a new vision for SpaceX and xAI. He landed on Moonbase Alpha.",
+      "link": "https://techcrunch.com/2026/02/12/musk-needed-a-new-vision-for-spacex-and-xai-he-landed-on-moonbase-alpha/",
+      "description": "\"I really want to see a mass driver on the moon that is shooting AI satellites into deep space.\"",
+      "pubDate": "2026-02-12T22:10:55.000Z",
+      "timestamp": 1770934255000,
+      "category": "Industry News"
+    },
+    {
+      "source": "TechCrunch AI",
+      "title": "Didero lands $30M to put manufacturing procurement on &#8216;agentic&#8217; autopilot",
+      "link": "https://techcrunch.com/2026/02/12/didero-lands-30m-to-put-manufacturing-procurement-on-agentic-autopilot/",
+      "description": "Didero functions as an agentic AI layer that sits on top of a company’s existing ERP, acting as a coordinator that reads incoming communications and automatically executes the necessary updates and tasks.",
+      "pubDate": "2026-02-12T20:31:47.000Z",
+      "timestamp": 1770928307000,
+      "category": "Industry News"
+    },
+    {
+      "source": "TechCrunch AI",
+      "title": "Anthropic raises another $30B in Series G, with a new value of $380B",
+      "link": "https://techcrunch.com/2026/02/12/anthropic-raises-another-30-billion-in-series-g-with-a-new-value-of-380-billion/",
+      "description": "The infusion of funding for the AI startup takes place as it is vying for customers and cultural attention with its competitor, OpenAI.",
+      "pubDate": "2026-02-12T20:18:37.000Z",
+      "timestamp": 1770927517000,
+      "category": "Industry News"
+    },
+    {
+      "source": "TechCrunch AI",
+      "title": "Spotify says its best developers haven&#8217;t written a line of code since December, thanks to AI",
+      "link": "https://techcrunch.com/2026/02/12/spotify-says-its-best-developers-havent-written-a-line-of-code-since-december-thanks-to-ai/",
+      "description": "Spotify credits Claude Code and its internal AI system Honk with speeding up development.",
+      "pubDate": "2026-02-12T18:30:12.000Z",
+      "timestamp": 1770921012000,
+      "category": "Industry News"
+    },
+    {
+      "source": "TechCrunch AI",
+      "title": "A new version of OpenAI&#8217;s Codex is powered by a new dedicated chip",
+      "link": "https://techcrunch.com/2026/02/12/a-new-version-of-openais-codex-is-powered-by-a-new-dedicated-chip/",
+      "description": "OpenAI calls the new coding tool the \"first milestone\" in its relationship with the chipmaker.",
+      "pubDate": "2026-02-12T18:00:00.000Z",
+      "timestamp": 1770919200000,
+      "category": "Industry News"
+    },
+    {
+      "source": "The Verge AI",
+      "title": "Good Luck, Have Fun, Don’t Die is a rollicking parable about this moment in tech",
+      "link": "",
+      "description": "We are all guilty of pulling out our phones and doomscrolling through stressful headlines or mindnumbing videos when we should be doing anything else. We know it's bad, but we still do it because it's hard to resist when much of our time is spent living and working on our devices. And even though we [&#8230;]",
+      "pubDate": "2026-02-12T17:45:00.000Z",
+      "timestamp": 1770918300000,
+      "category": "Tech News"
+    },
+    {
+      "source": "The Verge AI",
+      "title": "The surprising case for AI judges",
+      "link": "",
+      "description": "Today, we’re going to talk about the role AI might play in deciding legal disputes. Not just drafting memos and doing research — actually deciding who’s right and who’s wrong, and who should pay. My guest today is Bridget McCormack, the former chief justice for the Michigan Supreme Court and now president and CEO of [&#8230;]",
+      "pubDate": "2026-02-12T16:22:33.000Z",
+      "timestamp": 1770913353000,
+      "category": "Tech News"
+    },
+    {
+      "source": "The Verge AI",
+      "title": "ByteDance’s next-gen AI model can generate clips based on text, images, audio, and video",
+      "link": "",
+      "description": "Big Tech's race to leapfrog the latest AI models continues with the launch of ByteDance's next-gen video generator. In a blog post, ByteDance - the China-based company behind TikTok - says Seedance 2.0 supports prompts that combine text, images, video, and audio. The company claims it \"delivers a substantial leap in generation quality,\" offering improvements [&#8230;]",
+      "pubDate": "2026-02-12T15:26:00.000Z",
+      "timestamp": 1770909960000,
+      "category": "Tech News"
+    },
+    {
+      "source": "The Verge AI",
+      "title": "This $7,999 robot will fold (some of) your laundry",
+      "link": "",
+      "description": "If you have a spare $7,999 (plus a $250 deposit), hate folding laundry, and happen to live in the Bay Area, one-and-a-half-year-old startup Weave has the robot for you: Isaac 0. It takes Isaac 0 around 30-90 minutes to fold a load of laundry, Weave says. That's all it does - it's stationary and needs [&#8230;]",
+      "pubDate": "2026-02-12T12:59:06.000Z",
+      "timestamp": 1770901146000,
+      "category": "Tech News"
+    },
+    {
+      "source": "MIT Technology Review AI",
+      "title": "AI is already making online crimes easier. It could get much worse.",
+      "link": "https://www.technologyreview.com/2026/02/12/1132386/ai-already-making-online-swindles-easier/",
+      "description": "Anton Cherepanov is always on the lookout for something interesting. And in late August last year, he spotted just that. It was a file uploaded to VirusTotal, a site cybersecurity researchers like him use to analyze submissions for potential viruses and other types of malicious software, often known as malware. On the surface it seemed&#8230;",
+      "pubDate": "2026-02-12T11:00:00.000Z",
+      "timestamp": 1770894000000,
+      "category": "Deep Analysis"
+    },
+    {
+      "source": "MIT Technology Review AI",
+      "title": "What’s next for Chinese open-source AI",
+      "link": "https://www.technologyreview.com/2026/02/12/1132811/whats-next-for-chinese-open-source-ai/",
+      "description": "MIT Technology Review’s What’s Next series looks across industries, trends, and technologies to give you a first look at the future. You can read the rest of them&#160;here. The past year has marked a turning point for Chinese AI. Since DeepSeek released its R1 reasoning model in January 2025, Chinese companies have repeatedly delivered AI&#8230;",
+      "pubDate": "2026-02-12T10:00:00.000Z",
+      "timestamp": 1770890400000,
+      "category": "Deep Analysis"
+    }
+  ]
+}

@@ -26,27 +26,50 @@ Use this skill when you need to:
 
 ### Step 1: News Discovery & Research
 
-**Scan These Sources:**
-- TechCrunch AI: https://techcrunch.com/category/artificial-intelligence/
-- OpenAI Blog: https://openai.com/news/
-- Google AI Blog: https://ai.googleblog.com/
-- Anthropic News: https://www.anthropic.com/news
-- Hugging Face Blog: https://huggingface.co/blog
-- arXiv AI papers: https://arxiv.org/list/cs.AI/recent
+**Run the RSS Feed Aggregator:**
 
-**What to Look For:**
-- Product launches or major updates
-- Research breakthroughs
-- Industry trends or shifts
-- Regulatory developments
-- Company announcements
-- Controversial debates
+```bash
+# Fetch AI news from the last 12 hours (for morning run)
+node .pi/scripts/fetch-ai-news.js 12
 
-**Select Criteria:**
-- Significance: High impact on AI industry
-- Timeliness: Within last 12-24 hours
-- Audience fit: Relevant to target market (EU vs US)
-- Uniqueness: Not already covered in morning article (if evening job)
+# OR fetch from last 24 hours (for comprehensive coverage)
+node .pi/scripts/fetch-ai-news.js 24
+```
+
+This script automatically fetches news from:
+- ✅ **OpenAI Blog** - Company announcements, research
+- ✅ **Google AI Blog** - Technical research, product updates
+- ✅ **Hugging Face Blog** - Open-source models, community
+- ✅ **TechCrunch AI** - Industry news, funding, companies
+- ✅ **The Verge AI** - Consumer tech perspective
+- ✅ **MIT Technology Review** - Deep analysis, ethics
+
+**Output:** JSON file at `/job/tmp/latest-ai-news.json` containing:
+- All articles from the time window
+- Source, title, link, description, publication date
+- Sorted by recency (newest first)
+
+**Read the results:**
+```bash
+# View the full JSON output
+cat /job/tmp/latest-ai-news.json
+
+# Or just see the top 5 articles
+node .pi/scripts/fetch-ai-news.js 12 | grep -A 20 "Top 5"
+```
+
+**Select Your Article Topic:**
+
+From the fetched news, choose ONE article that:
+- **Significance:** High impact on AI industry
+- **Timeliness:** Within the specified time window
+- **Audience fit:** Relevant to target market (EU vs US)
+- **Uniqueness:** Not already covered in morning article (if evening job)
+- **Interest level:** Would make readers want to click and read
+
+**Selection Strategy:**
+- **EU Morning (9 AM UTC):** Prioritize European companies/research, or global topics that will interest EU audience waking up
+- **US Evening (1 PM UTC):** Prioritize US companies, or pick a DIFFERENT topic than morning to provide variety
 
 ---
 
@@ -287,33 +310,67 @@ git push origin main
 **Morning Job (9 AM UTC / EU Market):**
 
 ```bash
-# 1. Research news
-curl -s "https://techcrunch.com/category/artificial-intelligence/" | grep -A5 "headline"
+# 1. Fetch AI news from last 12 hours
+node .pi/scripts/fetch-ai-news.js 12
 
-# 2. Read affiliate database
+# 2. Read the results and select a topic
+cat /job/tmp/latest-ai-news.json | head -100
+
+# 3. Read affiliate database for product matching
 cat .pi/knowledge/affiliate-products.md
 
-# 3. Write article
-# [Write content following template above]
+# 4. Write the article content
+# [AI writes 800-1200 word article based on selected news]
 
-# 4. Save to blog
+# 5. Save to blog directory
 cd /job/website/content/blog/
 cat > 2026-02-13-google-gemini-15-ultra-launch.md << 'EOF'
 ---
-title: "Google Launches Gemini 1.5 Ultra with 1M Token Context Window"
+title: "Google Launches Gemini 1.5 Ultra with 1M Token Context"
 date: 2026-02-13
 author: AI News Desk
 category: AI Technology
-tags: [Google, Gemini, Large Language Model, Context Window, LLM]
-description: "Google's new Gemini 1.5 Ultra model features a groundbreaking 1 million token context window, enabling unprecedented long-form analysis capabilities."
+tags: [Google, Gemini, LLM, Context Window, AI]
+description: "Google's Gemini 1.5 Ultra introduces a groundbreaking 1 million token context window, revolutionizing long-form AI analysis capabilities."
 ---
-[Full article content...]
+
+# Google Launches Gemini 1.5 Ultra with 1M Token Context
+
+**Google has unveiled Gemini 1.5 Ultra, marking a significant milestone in large language model development with its unprecedented 1 million token context window—a 10x improvement over previous generation models.**
+
+## What Happened
+
+[Full article content with proper structure, 800-1200 words]
+[2-3 naturally integrated affiliate links based on relevance]
+[SEO-optimized headers and content]
+
+---
+
+*Some links may earn us a commission. We only recommend tools that add genuine value.*
 EOF
 
-# 5. Commit and push
-git add .
-git commit -m "Add article: Google Gemini 1.5 Ultra launch analysis"
+# 6. Commit and push
+git add website/content/blog/2026-02-13-google-gemini-15-ultra-launch.md
+git commit -m "Add AI news: Google Gemini 1.5 Ultra with 1M token context window"
 git push origin main
+
+# 7. Verify success
+echo "✅ Article published successfully!"
+```
+
+**Evening Job (1 PM UTC / US Market):**
+
+```bash
+# 1. Fetch fresh news from last 12 hours
+node .pi/scripts/fetch-ai-news.js 12
+
+# 2. Check morning article to avoid duplication
+ls -lh /job/website/content/blog/ | tail -2
+
+# 3. Select DIFFERENT topic than morning article
+cat /job/tmp/latest-ai-news.json | grep -v "Gemini"
+
+# 4-7. [Same process as morning, but different topic]
 ```
 
 ---
