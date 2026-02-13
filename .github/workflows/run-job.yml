@@ -98,10 +98,12 @@ jobs:
           echo "🤖 Starting AI News Bot"
           echo "📝 Job ID: ${{ steps.job-info.outputs.job_id }}"
           echo "🌿 Branch: job/${{ steps.job-info.outputs.job_id }}"
-          echo "🧠 Model: ${MODEL}"
+          echo "🧠 Model: gpt-4o (OpenAI)"
           echo "🎯 Description: ${JOB_DESCRIPTION}"
+          echo "🔧 Patching entrypoint: anthropic → openai"
           
           docker run --rm \
+            --entrypoint /bin/bash \
             -e REPO_URL="${REPO_URL}" \
             -e BRANCH="${BRANCH}" \
             -e OPENAI_API_KEY="${OPENAI_API_KEY}" \
@@ -115,7 +117,8 @@ jobs:
             -e JOB_TYPE="${JOB_TYPE}" \
             -e JOB_DESCRIPTION="${JOB_DESCRIPTION}" \
             -e DEBUG="${DEBUG}" \
-            "$IMAGE"
+            "$IMAGE" \
+            -c "sed -i 's/--provider anthropic/--provider openai/' /entrypoint.sh && /entrypoint.sh"
 
       - name: Notify Success
         if: success()
