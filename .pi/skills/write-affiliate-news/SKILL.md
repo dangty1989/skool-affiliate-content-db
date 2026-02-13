@@ -25,9 +25,9 @@ Use this skill when you need to:
 
 ### Step 1: Fetch Latest News
 
-Run the Python script to scrape top AI news sources:
+Run the Node.js script to scrape top AI news sources (Python is not available):
 ```bash
-python .pi/scripts/fetch-ai-news.py
+node .pi/scripts/fetch-ai-news.js
 ```
 
 This will generate `logs/latest-ai-news.json`. Read this file to see top stories.
