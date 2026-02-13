@@ -1,0 +1,1 @@
+Scan the latest AI news and write a comprehensive SEO-optimized article. Target length: 800-1200 words. Include 2-3 relevant affiliate links naturally. Save to website/content/blog/ with filename format YYYY-MM-DD-descriptive-slug.md
