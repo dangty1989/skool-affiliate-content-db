@@ -1,9 +1,6 @@
 name: AI News Bot - Daily Articles
 
 on:
-  # Trigger when job branch is created (manual from Telegram)
-  create:
-  
   # Scheduled triggers for automated daily articles
   schedule:
     # Morning article (EU market) - 9 AM UTC = 4 PM Vietnam
@@ -32,78 +29,78 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
 
-      - name: Determine Job Type
-        id: job-type
+      - name: Determine Job Description
+        id: job-info
         run: |
+          JOB_ID=$(uuidgen)
+          echo "job_id=${JOB_ID}" >> $GITHUB_OUTPUT
+          
           if [ "${{ github.event_name }}" == "schedule" ]; then
             if [ "${{ github.event.schedule }}" == "0 9 * * *" ]; then
-              echo "type=morning-eu" >> $GITHUB_OUTPUT
-              echo "description=Scan AI news from the last 12 hours and write a comprehensive SEO-optimized article for the European audience" >> $GITHUB_OUTPUT
+              DESC="Scan AI news from the last 12 hours and write a comprehensive SEO-optimized article for the European audience. Focus on the most significant AI development. Target length: 800-1200 words. Include 2-3 relevant affiliate links. Save to website/content/blog/"
             else
-              echo "type=evening-us" >> $GITHUB_OUTPUT
-              echo "description=Scan AI news from the last 12 hours and write a comprehensive SEO-optimized article for the US audience (different topic than morning)" >> $GITHUB_OUTPUT
+              DESC="Scan AI news from the last 12 hours and write a comprehensive SEO-optimized article for the US audience (different topic than morning). Target length: 800-1200 words. Include 2-3 relevant affiliate links. Save to website/content/blog/"
             fi
           elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "type=custom" >> $GITHUB_OUTPUT
             if [ -n "${{ inputs.job_description }}" ]; then
-              echo "description=${{ inputs.job_description }}" >> $GITHUB_OUTPUT
+              DESC="${{ inputs.job_description }}"
             else
-              echo "description=Manual trigger: Scan latest AI news and write an article" >> $GITHUB_OUTPUT
+              DESC="Scan the latest AI news and write a comprehensive SEO-optimized article. Target length: 800-1200 words. Include 2-3 relevant affiliate links naturally. Save to website/content/blog/ with filename format YYYY-MM-DD-descriptive-slug.md"
             fi
           else
-            echo "type=telegram" >> $GITHUB_OUTPUT
-            echo "description=Process Telegram command" >> $GITHUB_OUTPUT
+            DESC="Process incoming job request"
           fi
+          
+          echo "description=${DESC}" >> $GITHUB_OUTPUT
 
-      - name: Create Job Description File
+      - name: Create Job Branch
         run: |
-          JOB_ID=$(cat /proc/sys/kernel/random/uuid)
-          echo "JOB_ID=${JOB_ID}" >> $GITHUB_ENV
-          mkdir -p logs/${JOB_ID}
-          echo "${{ steps.job-type.outputs.description }}" > logs/${JOB_ID}/job.md
-          git add logs/${JOB_ID}/job.md
+          JOB_ID="${{ steps.job-info.outputs.job_id }}"
+          JOB_BRANCH="job/${JOB_ID}"
+          
+          echo "📋 Creating job branch: ${JOB_BRANCH}"
+          
+          # Create and switch to job branch
+          git checkout -b "${JOB_BRANCH}"
+          
+          # Create the job.md file that PopeBot expects
+          mkdir -p "logs/${JOB_ID}"
+          echo "${{ steps.job-info.outputs.description }}" > "logs/${JOB_ID}/job.md"
+          
+          # Force add (logs/ may be in .gitignore)
+          git add -f "logs/${JOB_ID}/job.md"
+          
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "Create job description for ${JOB_ID}" || true
-          git push || true
+          git commit -m "Create job ${JOB_ID}"
+          git push origin "${JOB_BRANCH}"
+          
+          echo "✅ Job branch created and pushed"
 
       - name: Run AI News Bot
         env:
-          # OpenAI Configuration
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           MODEL: "gpt-4o"
-          
-          # GitHub Configuration
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GH_OWNER: "dangty1989"
           GH_REPO: "skool-affiliate-content-db"
-          
-          # Telegram Configuration
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          
-          # Security
           API_KEY: ${{ secrets.API_KEY }}
-          
-          # Repository Info
           REPO_URL: "https://${{ secrets.GH_TOKEN }}@github.com/dangty1989/skool-affiliate-content-db.git"
-          BRANCH: "main"
-          
-          # Job Info
-          JOB_TYPE: ${{ steps.job-type.outputs.type }}
-          JOB_DESCRIPTION: ${{ steps.job-type.outputs.description }}
-          
-          # Debug
+          BRANCH: "job/${{ steps.job-info.outputs.job_id }}"
+          JOB_TYPE: "custom"
+          JOB_DESCRIPTION: ${{ steps.job-info.outputs.description }}
           DEBUG: "true"
         run: |
           IMAGE="stephengpope/thepopebot:latest"
           
           echo "🤖 Starting AI News Bot"
-          echo "📝 Job type: ${JOB_TYPE}"
-          echo "🎯 Description: ${JOB_DESCRIPTION}"
+          echo "📝 Job ID: ${{ steps.job-info.outputs.job_id }}"
+          echo "🌿 Branch: job/${{ steps.job-info.outputs.job_id }}"
           echo "🧠 Model: ${MODEL}"
+          echo "🎯 Description: ${JOB_DESCRIPTION}"
           
-          # Run the Docker container
           docker run --rm \
             -e REPO_URL="${REPO_URL}" \
             -e BRANCH="${BRANCH}" \
@@ -120,18 +117,16 @@ jobs:
             -e DEBUG="${DEBUG}" \
             "$IMAGE"
 
-      - name: Notify Success (Telegram)
+      - name: Notify Success
         if: success()
         run: |
-          MESSAGE="✅ AI News Bot job completed successfully!%0A%0A📝 Job type: ${{ steps.job-type.outputs.type }}%0A🧠 Model: gpt-4o%0A⏰ Time: $(date -u +\"%Y-%m-%d %H:%M UTC\")"
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
-            -d "text=${MESSAGE}"
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="✅ AI News Bot completed! Job: ${{ steps.job-info.outputs.job_id }}"
 
-      - name: Notify Failure (Telegram)
+      - name: Notify Failure
         if: failure()
         run: |
-          MESSAGE="❌ AI News Bot job failed!%0A%0A📝 Job type: ${{ steps.job-type.outputs.type }}%0A⏰ Time: $(date -u +\"%Y-%m-%d %H:%M UTC\")%0A%0ACheck GitHub Actions logs for details."
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
-            -d "text=${MESSAGE}"
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="❌ AI News Bot failed! Check Actions logs." || true
