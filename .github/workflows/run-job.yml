@@ -80,7 +80,7 @@ jobs:
       - name: Run AI News Bot
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          MODEL: "gpt-4o"
+          MODEL: "gpt-4o-mini"
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GH_OWNER: "dangty1989"
           GH_REPO: "skool-affiliate-content-db"
@@ -98,7 +98,7 @@ jobs:
           echo "🤖 Starting AI News Bot"
           echo "📝 Job ID: ${{ steps.job-info.outputs.job_id }}"
           echo "🌿 Branch: job/${{ steps.job-info.outputs.job_id }}"
-          echo "🧠 Model: gpt-4o (OpenAI)"
+          echo "🧠 Model: gpt-4o-mini (OpenAI)"
           echo "🎯 Description: ${JOB_DESCRIPTION}"
           echo "🔧 Patching entrypoint: anthropic → openai"
           
