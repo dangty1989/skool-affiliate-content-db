@@ -1,0 +1,1 @@
+URGENT: Run 'node /job/.pi/scripts/fetch-ai-news.js' immediately to fetch evening news. Then pick the top story and write a 1000-word article for US audience using the 'write-affiliate-news' skill guidelines. Save to /job/website/content/blog/
