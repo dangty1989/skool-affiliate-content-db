@@ -9,7 +9,9 @@ const OUTPUT_FILE = path.join('logs', 'latest-ai-news.json');
 
 const SOURCES = [
   { name: "OpenAI Blog", url: "https://openai.com/blog/rss.xml" },
-  { name: "Google AI Blog", url: "https://ai.googleblog.com/feeds/posts/default" },
+  { name: "Google AI Blog (Research)", url: "https://ai.googleblog.com/feeds/posts/default" },
+  { name: "Google The Keyword (AI)", url: "https://blog.google/technology/ai/rss/" },
+  { name: "DeepMind Blog", url: "https://deepmind.com/blog/feed/basic" },
   { name: "Hugging Face Blog", url: "https://huggingface.co/blog/feed.xml" },
   { name: "TechCrunch AI", url: "https://techcrunch.com/category/artificial-intelligence/feed/" },
   { name: "MIT Technology Review", url: "https://www.technologyreview.com/topic/artificial-intelligence/feed" },
@@ -26,8 +28,14 @@ function fetchRSS(source) {
   return new Promise((resolve) => {
     const req = https.get(source.url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        // Follow redirect
-        fetchRSS({ ...source, url: res.headers.location }).then(resolve);
+        // Follow redirect (handle relative paths)
+        try {
+          const newUrl = new URL(res.headers.location, source.url).toString();
+          fetchRSS({ ...source, url: newUrl }).then(resolve);
+        } catch (err) {
+          console.error(`Invalid redirect for ${source.name}: ${res.headers.location}`);
+          resolve(null);
+        }
         return;
       }
 
