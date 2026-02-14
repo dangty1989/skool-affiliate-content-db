@@ -1,4 +1,3 @@
-
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
@@ -62,7 +61,7 @@ function extractImage(itemStr) {
   if (enclosureMatch) return enclosureMatch[1];
 
   // 3. Try regex on content/description
-  const imgMatch = itemStr.match(/<img[^>]+src="([^">]+)"/);
+  const imgMatch = itemStr.match(/<img[^>]+src="([^"]+)"/);
   if (imgMatch) return imgMatch[1];
 
   return "";
@@ -89,7 +88,7 @@ async function main() {
     const isAtom = xml.includes('<entry>');
     const itemTag = isAtom ? 'entry' : 'item';
 
-    const itemRegex = new RegExp(`<${itemTag}[^>]*>([\\s\\S]*?)<\\/${itemTag}>`, 'gi');
+    const itemRegex = new RegExp(`<${itemTag}[^>]*>([\s\S]*?)<\/${itemTag}>`, 'gi');
     let match;
 
     while ((match = itemRegex.exec(xml)) !== null) {
