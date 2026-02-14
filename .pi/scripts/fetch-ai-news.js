@@ -4,7 +4,7 @@ const path = require('path');
 const { URL } = require('url');
 
 // Configuration
-const HOURS_BACK = 24;
+const HOURS_BACK = 72;
 const OUTPUT_FILE = path.join('logs', 'latest-ai-news.json');
 
 const SOURCES = [
