@@ -128,8 +128,11 @@ async function main() {
   // Sort by date (newest first)
   uniqueArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(uniqueArticles, null, 2));
-  console.log(`✅ Found ${uniqueArticles.length} fresh AI news articles.`);
+  // Limit to top 15 articles to save tokens for GPT-4o
+  const limitedArticles = uniqueArticles.slice(0, 15);
+
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(limitedArticles, null, 2));
+  console.log(`✅ Found ${uniqueArticles.length} fresh AI news articles (keeping top ${limitedArticles.length}).`);
   console.log(`Saved to ${OUTPUT_FILE}`);
 }
 
