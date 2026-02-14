@@ -12,63 +12,32 @@ const SOURCES = [
   { name: "Google AI Blog (Research)", url: "https://ai.googleblog.com/feeds/posts/default" },
   { name: "Google The Keyword (AI)", url: "https://blog.google/technology/ai/rss/" },
   { name: "DeepMind Blog", url: "https://deepmind.com/blog/feed/basic" },
+  { name: "Julian Goldie SEO (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCGpsgNbzdF7BECCVbB1COHw" },
+  { name: "Stephen G. Pope (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCIg2taLnC9X6LRP1k3kukOA" },
+  { name: "n8n (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCNt6d_hP-vR_gS8PzC4gS_w" },
+  { name: "Itssssss_Jack (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCxVxcTULO9cFU6SB9qVaisQ" },
   { name: "Hugging Face Blog", url: "https://huggingface.co/blog/feed.xml" },
   { name: "TechCrunch AI", url: "https://techcrunch.com/category/artificial-intelligence/feed/" },
   { name: "MIT Technology Review", url: "https://www.technologyreview.com/topic/artificial-intelligence/feed" },
   { name: "VentureBeat AI", url: "https://venturebeat.com/category/ai/feed/" }
 ];
 
-// Ensure logs directory exists
-const logDir = path.dirname(OUTPUT_FILE);
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir, { recursive: true });
-}
-
-function fetchRSS(source) {
-  return new Promise((resolve) => {
-    const req = https.get(source.url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        // Follow redirect (handle relative paths)
-        try {
-          const newUrl = new URL(res.headers.location, source.url).toString();
-          fetchRSS({ ...source, url: newUrl }).then(resolve);
-        } catch (err) {
-          console.error(`Invalid redirect for ${source.name}: ${res.headers.location}`);
-          resolve(null);
-        }
-        return;
-      }
-
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve({ source: source.name, data }));
-    });
-
-    req.on('error', (e) => {
-      console.error(`Error fetching ${source.name}: ${e.message}`);
-      resolve(null);
-    });
-  });
-}
-
-function parseDate(dateStr) {
-  try {
-    return new Date(dateStr);
-  } catch (e) {
-    return null;
-  }
-}
+// ... (lines 20-63)
 
 function extractImage(itemStr) {
-  // 1. Try media:content
+  // 1. Try media:thumbnail (YouTube/Standard RSS)
+  const thumbnailMatch = itemStr.match(/<media:thumbnail[^>]+url="([^"]+)"/);
+  if (thumbnailMatch) return thumbnailMatch[1];
+
+  // 2. Try media:content
   const mediaMatch = itemStr.match(/<media:content[^>]+url="([^"]+)"/);
   if (mediaMatch) return mediaMatch[1];
 
-  // 2. Try enclosure
+  // 3. Try enclosure
   const enclosureMatch = itemStr.match(/<enclosure[^>]+url="([^"]+)"[^>]*type="image/);
   if (enclosureMatch) return enclosureMatch[1];
 
-  // 3. Try regex on content/description
+  // 4. Try regex on content/description
   const imgMatch = itemStr.match(/<img[^>]+src="([^"]+)"/);
   if (imgMatch) return imgMatch[1];
 

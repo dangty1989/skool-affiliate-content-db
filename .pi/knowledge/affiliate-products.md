@@ -45,6 +45,12 @@
 **Matching Keywords:** Hosting, VPS, server, deploying AI, website performance, cloud infrastructure.
 **Context:** Use when discussing deploying AI apps, self-hosted LLMs/agents, or web infrastructure.
 
+## 🎓 AI Communities & Courses
+**Product:** Skool (Julian Goldie SEO)
+**Affiliate Link:** `https://www.skool.com/ai-seo-with-julian-goldie-1553/about?ref=451dbbb27ba0480f931fa9156fe6ff4b`
+**Matching Keywords:** SEO, Julian Goldie, ranking, backlinks, programmatic SEO, SEO course, community, Skool.
+**Context:** Use when discussing SEO strategies, traffic growth, or learning resources.
+
 ---
 
 ## 📝 General Rules for Insertion
