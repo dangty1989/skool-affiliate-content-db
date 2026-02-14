@@ -22,7 +22,46 @@ const SOURCES = [
   { name: "VentureBeat AI", url: "https://venturebeat.com/category/ai/feed/" }
 ];
 
-// ... (lines 20-63)
+// Ensure logs directory exists
+const logDir = path.dirname(OUTPUT_FILE);
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir, { recursive: true });
+}
+
+function fetchRSS(source) {
+  return new Promise((resolve) => {
+    const req = https.get(source.url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        // Follow redirect (handle relative paths)
+        try {
+          const newUrl = new URL(res.headers.location, source.url).toString();
+          fetchRSS({ ...source, url: newUrl }).then(resolve);
+        } catch (err) {
+          console.error(`Invalid redirect for ${source.name}: ${res.headers.location}`);
+          resolve(null);
+        }
+        return;
+      }
+
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve({ source: source.name, data }));
+    });
+
+    req.on('error', (e) => {
+      console.error(`Error fetching ${source.name}: ${e.message}`);
+      resolve(null);
+    });
+  });
+}
+
+function parseDate(dateStr) {
+  try {
+    return new Date(dateStr);
+  } catch (e) {
+    return null;
+  }
+}
 
 function extractImage(itemStr) {
   // 1. Try media:thumbnail (YouTube/Standard RSS)
