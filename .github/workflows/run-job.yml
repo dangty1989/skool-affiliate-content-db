@@ -120,6 +120,12 @@ jobs:
             "$IMAGE" \
             -c "sed -i 's/--provider anthropic/--provider openai/' /entrypoint.sh && /entrypoint.sh"
 
+      - name: Clean Blog Output
+        if: success()
+        run: |
+          echo "🧹 Cleaning unwanted debug output from blog posts..."
+          node .pi/scripts/clean-blog-output.js
+
       - name: Notify Success
         if: success()
         run: |

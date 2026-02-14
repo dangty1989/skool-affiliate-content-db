@@ -38,5 +38,4 @@ This article aimed to provide clear insights into the latest developments in AI,
 
 --- 
 
-Please let me know if you'd like to modify any part or if there's anything else you need!  
-
+Please let me know if you'd like to modify any part or if there's anything else you need!

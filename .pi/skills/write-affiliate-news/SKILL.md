@@ -53,55 +53,92 @@ Check `.pi/knowledge/affiliate-products.md`.
 
 ## 4. Content Guidelines
 
-### Writing Style (CRITICAL FOR READABILITY):
-- **Format:** "Smart Curator" / "Influencer" style. 
-- **Paragraphs:** SUPER SHORT. 1-3 sentences maximum. Break up text frequently.
-- **Formatting:** Use **bold** liberally to highlight key phrases and takeaways.
-- **Lists:** Use bullet points for features, reasons, or benefits.
-- **Headers:** Add emojis to H2/H3 headers (e.g., "## 🚀 What Happened").
-- **Images:** MANDATORY. If the news source provides an image, use it. **IF NO IMAGE IS FOUND, YOU MUST USE THIS FALLBACK:** `https://images.unsplash.com/photo-1677442136019-21780ecad995` (Generic AI Abstract). DO NOT publish without an image.
+### ⚡ Writing Style (ENGAGING COPY - NOT CORPORATE REPORTS):
 
-### Article Structure:
+**Core Principle:** Write like Julian Goldie - direct, punchy, value-packed.
+
+**HOOK FIRST (Mandatory):**
+- Open with a pattern interrupt or surprising stat
+- Make readers think "Wait, what?!"
+- Examples:
+  - "Most marketers are doing X wrong. Here's why..."
+  - "This AI tool just killed [competitor]. Here's how..."
+  - "I tested [tool] for 30 days. Results shocked me."
+
+**Format Rules:**
+- **Length:** 300-500 words MAX (not 800+!)
+- **Paragraphs:** Ultra-short. 1-2 sentences. White space is your friend.
+- **Bold Liberally:** Highlight **key takeaways** and **action items**
+- **Lists:** Use bullets for features, steps, benefits
+- **Headers:** Add emojis to H2/H3 (e.g., "## 🔥 The Big Deal")
+
+**Tone & Voice:**
+- **Direct:** No fluff. Get to the point.
+- **Conversational:** Write like you're explaining to a friend over coffee
+- **Opinionated:** Have a take. Bland = boring.
+- **Value-first:** "Here's what this means for YOU"
+
+### 📝 Article Structure (SHORT & PUNCHY):
+
 ```markdown
 ---
-title: "Catchy SEO-Optimized Title (English)"
+title: "Click-worthy Title with Numbers or Power Words"
 date: YYYY-MM-DD
 author: AI News Desk
 category: AI Technology
 tags: [Relevant, SEO, Keywords]
-description: "Compelling meta description in English (Under 160 chars)"
-image: "URL_TO_IMAGE" 
+description: "Compelling one-liner that makes you want to read more"
+image: "URL_TO_IMAGE"
 ---
 
-# Main Title
+# Headline (Not the same as title!)
 
-![Alt Text for Image](URL_TO_IMAGE)
+![Alt Text](IMAGE_URL)
 
-**Hook:** A single punchy sentence summarizing the big news.
+**HOOK:** One sentence that makes readers stop scrolling.
 
-[Short paragraph explaining context]
+[1-2 sentences setting up the story]
 
-## 🚀 The News
+## 🔥 What Happened
 
-**Key breakdown:**
-- Point 1
-- Point 2
-- Point 3
+**The TLDR:**
+- Key point 1 (specific, not vague)
+- Key point 2 (outcomes, not features)
+- Key point 3 (why this matters NOW)
 
-[Short analysis paragraph]
+[Short paragraph with analysis - 2-3 sentences max]
 
-## 💡 Why It Matters
+## 💡 Why You Should Care
 
-**Impact:** Explain why the reader should care. Use **bold** for emphasis.
+**Bottom line:** [One punchy sentence about impact]
 
-## 🔗 Related Developments
+[Short explanation of real-world implications]
 
-...
+**For creators:** [Specific benefit]
+**For marketers:** [Specific benefit]
 
-## 🏁 Conclusion
+## 🎯 What To Do About It
 
-Final thoughts and Call-to-Action.
+[Optional: Only if there's a clear action]
+
+**Action step:** [Specific, tactical advice]
+
+[Naturally mention affiliate tool if relevant]
+
+## 🏁 Final Take
+
+[Your opinion in 1-2 sentences]
+
+[CTA: Join Skool community for more insights like this]
 ```
+
+### 🎣 Hook Examples (Use These Patterns):
+
+1. **The Reversal:** "Everyone says X. They're wrong. Here's why..."
+2. **The Stat Bomb:** "67% of marketers waste $10K/month on this mistake"
+3. **The Warning:** "If you're still using [old method], you're already behind"
+4. **The Prediction:** "This will replace [thing] in 6 months. Here's proof..."
+5. **The Personal:** "I tried [tool] for 30 days. Results? Mind-blowing."
 
 ### Affiliate Link Integration Rules:
 1. **2-3 links maximum per article** (avoid spam)
