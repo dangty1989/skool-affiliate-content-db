@@ -1,0 +1,1 @@
+URGENT: Run 'node .pi/scripts/fetch-ai-news.js' immediately to fetch morning news. Then pick the top story and write a 1000-word article for EU audience using the 'write-affiliate-news' skill guidelines. Save to website/content/blog/
