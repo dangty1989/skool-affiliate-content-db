@@ -4,7 +4,7 @@ const path = require('path');
 const { URL } = require('url');
 
 // Configuration
-const HOURS_BACK = 72;
+const HOURS_BACK = 120; // 5 days
 const OUTPUT_FILE = path.join('logs', 'latest-ai-news.json');
 
 const SOURCES = [
@@ -14,7 +14,7 @@ const SOURCES = [
   { name: "DeepMind Blog", url: "https://deepmind.com/blog/feed/basic" },
   { name: "Julian Goldie SEO (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCGpsgNbzdF7BECCVbB1COHw" },
   { name: "Stephen G. Pope (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCIg2taLnC9X6LRP1k3kukOA" },
-  { name: "n8n (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCNt6d_hP-vR_gS8PzC4gS_w" },
+  // { name: "n8n (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCNt6d_hP-vR_gS8PzC4gS_w" }, // 404 Error
   { name: "Itssssss_Jack (YouTube)", url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCxVxcTULO9cFU6SB9qVaisQ" },
   { name: "Hugging Face Blog", url: "https://huggingface.co/blog/feed.xml" },
   { name: "TechCrunch AI", url: "https://techcrunch.com/category/artificial-intelligence/feed/" },
@@ -87,15 +87,86 @@ function cleanText(txt) {
   return txt.replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').replace(/<[^>]+>/g, '').trim();
 }
 
+async function fetchTavilyNews() {
+  const apiKey = process.env.TAVILY_API_KEY;
+  if (!apiKey) {
+    console.log('⚠️  TAVILY_API_KEY not found, skipping Tavily search');
+    return [];
+  }
+
+  return new Promise((resolve) => {
+    const query = 'latest AI news tutorials OpenAI Google DeepMind Anthropic Claude ChatGPT';
+    const postData = JSON.stringify({
+      query: query,
+      search_depth: 'basic',
+      max_results: 10,
+      include_images: true,
+      include_answer: false,
+      include_domains: [],
+      exclude_domains: []
+    });
+
+    const options = {
+      hostname: 'api.tavily.com',
+      port: 443,
+      path: '/search',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData),
+        'X-API-Key': apiKey
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const response = JSON.parse(data);
+          if (response.results && Array.isArray(response.results)) {
+            const articles = response.results.map(item => ({
+              source: 'Tavily Search',
+              title: item.title || 'No title',
+              link: item.url || '',
+              date: new Date().toISOString(),
+              description: (item.content || '').substring(0, 200) + '...',
+              image_url: item.image_url || '' // Tavily provides image_url when include_images: true
+            }));
+            console.log(`✅ Tavily found ${articles.length} articles`);
+            resolve(articles);
+          } else {
+            console.log('⚠️  Tavily returned no results');
+            resolve([]);
+          }
+        } catch (e) {
+          console.error(`Error parsing Tavily response: ${e.message}`);
+          resolve([]);
+        }
+      });
+    });
+
+    req.on('error', (e) => {
+      console.error(`Error calling Tavily API: ${e.message}`);
+      resolve([]);
+    });
+
+    req.write(postData);
+    req.end();
+  });
+}
+
 async function main() {
   console.log(`Fetching AI news from last ${HOURS_BACK} hours...`);
   const timeThreshold = new Date(Date.now() - HOURS_BACK * 60 * 60 * 1000);
 
+  // Fetch from RSS feeds
   const fetchPromises = SOURCES.map(src => fetchRSS(src));
   const results = await Promise.all(fetchPromises);
 
   let allArticles = [];
 
+  // Process RSS feeds
   for (const result of results) {
     if (!result || !result.data) continue;
 
@@ -104,7 +175,7 @@ async function main() {
     const isAtom = xml.includes('<entry>');
     const itemTag = isAtom ? 'entry' : 'item';
 
-    const itemRegex = new RegExp(`<${itemTag}[^>]*>([\s\S]*?)<\/${itemTag}>`, 'gi');
+    const itemRegex = new RegExp(`<${itemTag}[^>]*>([\\s\\S]*?)<\\/${itemTag}>`, 'gi');
     let match;
 
     while ((match = itemRegex.exec(xml)) !== null) {
@@ -136,6 +207,11 @@ async function main() {
       });
     }
   }
+
+  // Fetch from Tavily
+  console.log('Fetching from Tavily...');
+  const tavilyArticles = await fetchTavilyNews();
+  allArticles = allArticles.concat(tavilyArticles);
 
   // De-duplicate by link
   const uniqueArticles = Array.from(new Map(allArticles.map(item => [item.link, item])).values());
