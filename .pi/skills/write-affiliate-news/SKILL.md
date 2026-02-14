@@ -59,7 +59,7 @@ Check `.pi/knowledge/affiliate-products.md`.
 - **Formatting:** Use **bold** liberally to highlight key phrases and takeaways.
 - **Lists:** Use bullet points for features, reasons, or benefits.
 - **Headers:** Add emojis to H2/H3 headers (e.g., "## 🚀 What Happened").
-- **Images:** MANDATORY. Find an image URL from the source news or use a relevant Unsplash placeholder.
+- **Images:** MANDATORY. If the news source provides an image, use it. **IF NO IMAGE IS FOUND, YOU MUST USE THIS FALLBACK:** `https://images.unsplash.com/photo-1677442136019-21780ecad995` (Generic AI Abstract). DO NOT publish without an image.
 
 ### Article Structure:
 ```markdown
