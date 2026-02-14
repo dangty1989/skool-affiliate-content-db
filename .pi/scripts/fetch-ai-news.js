@@ -10,7 +10,7 @@ const OUTPUT_FILE = path.join('logs', 'latest-ai-news.json');
 
 const SOURCES = [
   { name: "OpenAI Blog", url: "https://openai.com/blog/rss.xml" },
-  // { name: "Google AI Blog", url: "https://ai.googleblog.com/feeds/posts/default" },
+  { name: "Google AI Blog", url: "https://ai.googleblog.com/feeds/posts/default" },
   { name: "Hugging Face Blog", url: "https://huggingface.co/blog/feed.xml" },
   { name: "TechCrunch AI", url: "https://techcrunch.com/category/artificial-intelligence/feed/" },
   { name: "MIT Technology Review", url: "https://www.technologyreview.com/topic/artificial-intelligence/feed" },
