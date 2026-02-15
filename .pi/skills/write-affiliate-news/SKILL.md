@@ -83,8 +83,8 @@ Check `.pi/knowledge/affiliate-products.md`.
 ```markdown
 ---
 title: "Click-worthy Title with Numbers or Power Words"
-date: YYYY-MM-DD
-author: AI News Desk
+date: YYYY-MM-DD # NO quotes! Example: 2026-02-15
+author: AI News Desk # NO quotes!
 category: AI Technology
 tags: [Relevant, SEO, Keywords]
 description: "Compelling one-liner that makes you want to read more"

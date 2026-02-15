@@ -139,3 +139,29 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             -d text="❌ AI News Bot failed! Check Actions logs." || true
+
+      - name: Auto-Merge Job Branch
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          JOB_ID="${{ steps.job-info.outputs.job_id }}"
+          BRANCH="job/${JOB_ID}"
+          
+          echo "🔀 Creating and Merging PR for ${BRANCH}..."
+          
+          # Create Pull Request
+          gh pr create \
+            --title "🤖 Auto-generated content: Job ${JOB_ID}" \
+            --body "Automated PR created by AI News Bot workflow." \
+            --base main \
+            --head "${BRANCH}" \
+            --repo "${{ secrets.GH_OWNER }}/${{ secrets.GH_REPO }}"
+            
+          # Merge Pull Request
+          gh pr merge "${BRANCH}" \
+            --merge \
+            --admin \
+            --repo "${{ secrets.GH_OWNER }}/${{ secrets.GH_REPO }}"
+            
+          echo "✅ Successfully merged ${BRANCH} to main!"
