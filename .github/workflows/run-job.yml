@@ -138,9 +138,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
+          # SAFETY COMMIT STRATEGY: Push directly to main to avoid branch conflicts
+          git fetch origin main
+          git checkout main
+          git pull origin main --rebase
+          
           git add website/content/blog/*.md || true
-          git commit -m "Add AI generated blog post (Runner fallback)" || echo "No changes to commit"
-          git push origin "${BRANCH}" || echo "Nothing to push"
+          git commit -m "Add AI generated blog post (Direct Main Push)" || echo "No changes to commit"
+          git push origin main
 
       - name: Clean Blog Output
         if: success()
