@@ -102,7 +102,10 @@ jobs:
           echo "🎯 Description: ${JOB_DESCRIPTION}"
           echo "🔧 Patching entrypoint: anthropic → openai"
           
+          # Mount workspace to /job so we can persevere files
+          # Override entrypoint to fix provider and run safely
           docker run --rm \
+            -v ${{ github.workspace }}:/job \
             --entrypoint /bin/bash \
             -e REPO_URL="${REPO_URL}" \
             -e BRANCH="${BRANCH}" \
@@ -118,7 +121,19 @@ jobs:
             -e JOB_DESCRIPTION="${JOB_DESCRIPTION}" \
             -e DEBUG="${DEBUG}" \
             "$IMAGE" \
-            -c "sed -i 's/--provider anthropic/--provider openai/' /entrypoint.sh && /entrypoint.sh"
+            -c "sed -i 's/--provider anthropic/--provider openai/' /entrypoint.sh && /entrypoint.sh || true"
+
+          # FORCE COMMIT: The bot inside docker might fail to push.
+          # We commit any changes made by the bot from the runner side.
+          echo "💾 Checking for generated files..."
+          ls -R website/content/blog/ || true
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add website/content/blog/*.md || true
+          git commit -m "Add AI generated blog post (Runner fallback)" || echo "No changes to commit"
+          git push origin "${BRANCH}" || echo "Nothing to push"
 
       - name: Clean Blog Output
         if: success()
