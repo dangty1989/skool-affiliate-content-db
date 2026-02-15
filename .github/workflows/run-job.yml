@@ -102,10 +102,10 @@ jobs:
           echo "🎯 Description: ${JOB_DESCRIPTION}"
           echo "🔧 Patching entrypoint: anthropic → openai"
           
-          # Mount workspace to /job so we can persevere files
-          # Override entrypoint to fix provider and run safely
-          docker run --rm \
-            -v ${{ github.workspace }}:/job \
+          # Run container without --rm so we can copy files out later
+          # Name it 'aibot' for easy access
+          docker run \
+            --name aibot \
             --entrypoint /bin/bash \
             -e REPO_URL="${REPO_URL}" \
             -e BRANCH="${BRANCH}" \
@@ -123,9 +123,19 @@ jobs:
             "$IMAGE" \
             -c "sed -i 's/--provider anthropic/--provider openai/' /entrypoint.sh && /entrypoint.sh || true"
 
-          # FORCE COMMIT: The bot inside docker might fail to push.
-          # We commit any changes made by the bot from the runner side.
-          echo "💾 Checking for generated files..."
+          # FORCE COMMIT: Copy generated files from container to runner
+          echo "💾 Copying generated files from Docker container..."
+          
+          # Try to copy from /job/website/content/blog/ (Official path)
+          docker cp aibot:/job/website/content/blog/. website/content/blog/ || echo "⚠️ Could not copy from /job path"
+          
+          # Try to copy from /app/website/content/blog/ (Alternative path just in case)
+          docker cp aibot:/app/website/content/blog/. website/content/blog/ || echo "⚠️ Could not copy from /app path"
+
+          # cleanup container
+          docker rm aibot
+
+          echo "📂 Listing files after copy:"
           ls -R website/content/blog/ || true
 
           git config user.name "github-actions[bot]"
