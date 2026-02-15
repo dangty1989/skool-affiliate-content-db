@@ -37,15 +37,15 @@ jobs:
           
           if [ "${{ github.event_name }}" == "schedule" ]; then
             if [ "${{ github.event.schedule }}" == "0 9 * * *" ]; then
-              DESC="URGENT: Run 'node /job/.pi/scripts/fetch-ai-news.js' immediately to fetch morning news. Then pick the top story and write a 1000-word article for EU audience using the 'write-affiliate-news' skill guidelines. Save to /job/website/content/blog/"
+              DESC="URGENT: Run 'node /app/.pi/scripts/fetch-ai-news.js' immediately to fetch morning news. Then pick the top story and write a 1000-word article for EU audience using the 'write-affiliate-news' skill guidelines. Save to /app/website/content/blog/"
             else
-              DESC="URGENT: Run 'node /job/.pi/scripts/fetch-ai-news.js' immediately to fetch evening news. Then pick the top story and write a 1000-word article for US audience using the 'write-affiliate-news' skill guidelines. Save to /job/website/content/blog/"
+              DESC="URGENT: Run 'node /app/.pi/scripts/fetch-ai-news.js' immediately to fetch evening news. Then pick the top story and write a 1000-word article for US audience using the 'write-affiliate-news' skill guidelines. Save to /app/website/content/blog/"
             fi
           elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             if [ -n "${{ inputs.job_description }}" ]; then
               DESC="${{ inputs.job_description }}"
             else
-              DESC="URGENT: Execute the 'write-affiliate-news' skill now. 1) Run 'node /job/.pi/scripts/fetch-ai-news.js'. 2) Read '/job/logs/latest-ai-news.json'. 3) Write a 1000-word blog post about the top story. 4) Save to /job/website/content/blog/YYYY-MM-DD-slug.md"
+              DESC="URGENT: Execute the 'write-affiliate-news' skill now. 1) Run 'node /app/.pi/scripts/fetch-ai-news.js'. 2) Read '/app/logs/latest-ai-news.json'. 3) Write a 1000-word blog post about the top story. 4) Save to /app/website/content/blog/YYYY-MM-DD-slug.md"
             fi
           else
             DESC="Process incoming job request"
@@ -126,10 +126,7 @@ jobs:
           # FORCE COMMIT: Copy generated files from container to runner
           echo "💾 Copying generated files from Docker container..."
           
-          # Try to copy from /job/website/content/blog/ (Official path)
-          docker cp aibot:/job/website/content/blog/. website/content/blog/ || echo "⚠️ Could not copy from /job path"
-          
-          # Try to copy from /app/website/content/blog/ (Alternative path just in case)
+          # Try to copy from /app/website/content/blog/ (Official path inside container)
           docker cp aibot:/app/website/content/blog/. website/content/blog/ || echo "⚠️ Could not copy from /app path"
 
           # cleanup container
