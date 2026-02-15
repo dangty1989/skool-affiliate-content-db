@@ -126,7 +126,14 @@ jobs:
           # FORCE COMMIT: Copy generated files from container to runner
           echo "💾 Copying generated files from Docker container..."
           
-          # Try to copy from /app/website/content/blog/ (Official path inside container)
+          # DEBUG: Find where the markdown file is hidden
+          echo "🕵️ Searching for markdown files inside container..."
+          docker exec aibot find / -name "2026-*.md" || true
+
+          # Try to copy from /job/website/content/blog/ (Actual path seen in logs)
+          docker cp aibot:/job/website/content/blog/. website/content/blog/ || echo "⚠️ Could not copy from /job path"
+
+          # Try to copy from /app/website/content/blog/ (Alternative path)
           docker cp aibot:/app/website/content/blog/. website/content/blog/ || echo "⚠️ Could not copy from /app path"
 
           # cleanup container
