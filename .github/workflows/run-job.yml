@@ -1,0 +1,79 @@
+name: AI News Bot - Daily Articles
+
+on:
+  # Scheduled triggers for automated daily articles
+  schedule:
+    # Morning article (EU market) - 9 AM UTC = 4 PM Vietnam
+    - cron: '0 9 * * *'
+    # Evening article (US market) - 1 PM UTC = 8 PM Vietnam  
+    - cron: '0 13 * * *'
+  
+  # Allow manual workflow dispatch for testing
+  workflow_dispatch:
+
+jobs:
+  write-article:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Step 1 - Fetch Latest AI News
+        run: |
+          echo "📰 Fetching latest AI news from RSS feeds & Tavily..."
+          node .pi/scripts/fetch-ai-news.js
+          echo ""
+          echo "📂 News file content:"
+          cat logs/latest-ai-news.json | head -c 2000
+        env:
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+
+      - name: Step 2 - Write Blog Post with OpenAI
+        run: |
+          echo "🧠 Writing blog post with o3-mini..."
+          node .pi/scripts/write-blog-post.js
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Step 3 - Commit and Push to Main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          echo "📂 Blog directory contents:"
+          ls -la website/content/blog/ | tail -5
+          
+          git add website/content/blog/*.md
+          git add logs/latest-ai-news.json || true
+          
+          if git diff --cached --quiet; then
+            echo "⚠️ No new content to commit"
+          else
+            git commit -m "📝 Auto-generated AI news blog post [$(date +%Y-%m-%d)]"
+            git push origin main
+            echo "✅ Successfully pushed new blog post to main!"
+          fi
+
+      - name: Step 4 - Notify Success via Telegram
+        if: success()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="✅ AI News Bot: New article published! Check https://skool-machine.vercel.app/blog" || true
+
+      - name: Notify Failure via Telegram
+        if: failure()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d text="❌ AI News Bot failed! Check Actions logs." || true
