@@ -118,7 +118,7 @@ curl -X POST "https://api.telegram.org/bot<BOT_TOKEN>/setWebhook" \
 
 **Example:**
 ```bash
-curl -X POST "https://api.telegram.org/bot110201543:AAHdqTcvRl1cC-unAfMibckHvGaw/setWebhook" \
+curl -X POST "https://api.telegram.org/bot<BOT_TOKEN>/setWebhook" \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://my-app-production.up.railway.app/api/telegram"
