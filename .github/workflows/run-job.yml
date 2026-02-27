@@ -71,6 +71,12 @@ jobs:
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             -d text="✅ AI News Bot: New article published! Check https://skool-machine.vercel.app/blog" || true
 
+      - name: Step 5 - Dispatch to n8n
+        if: success()
+        run: node .pi/scripts/send-to-n8n.js
+        env:
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+
       - name: Notify Failure via Telegram
         if: failure()
         run: |

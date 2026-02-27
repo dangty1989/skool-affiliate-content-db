@@ -170,7 +170,12 @@ CRITICAL RULES:
 5. NO CODE BLOCKS around the output. Just raw markdown.
 6. MANDATORY IMAGE: You MUST include the featured image right after the H1 using the provided source image.
 7. AFFILIATE LINKS: Use them naturally as a "recommendation from a friend".
-8. Language: English. Length: 300-500 words.`;
+SOCIAL MEDIA CONTENT (Strategic Anti-Suppression):
+After the blog post, generate content for X (Twitter) and Facebook using the 'Link in First Comment' strategy to maximize reach.
+- X POST (Caption): Under 250 chars, high curiosity, use emojis. NO LINK HERE. End with "Full guide in the first reply! 👇"
+- X FIRST REPLY: Contains the link to the blog post: https://skool-machine.vercel.app/blog/[slug]
+- FB POST (Caption): Strategic storytelling, use bullet points, high value. NO LINK HERE. End with "🎁 Link chi tiết nằm dưới comment đầu tiên nhé cả nhà! 👇"
+- FB FIRST COMMENT: The direct link: https://skool-machine.vercel.app/blog/[slug]`;
 
     const userPrompt = `Today is ${today}. Here are the top AI news stories to pick from:
 
@@ -180,19 +185,48 @@ PICK THE MOST IMPACTFUL STORY. Write as Julian Goldie.
 Ensure the "title", "description", and "image" in frontmatter are high-quality.
 If a source image exists, YOU MUST use it in the frontmatter "image" field and display it at the top of the post.
 
-Output the COMPLETE markdown file content.`;
+Output format:
+1. THE COMPLETE BLOG POST MARKDOWN
+2. SEPARATOR: ---SOCIAL-MEDIA-START---
+3. X-CAPTION: [content here]
+4. X-COMMENT: [link here]
+5. FB-CAPTION: [content here]
+6. FB-COMMENT: [link here]`;
 
     try {
-        const blogContent = await callOpenAI([
+        const fullResponse = await callOpenAI([
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt }
         ]);
 
-        // Step 6: Extract title for slug
         console.log('📝 Step 5: Processing and saving...');
 
-        // Clean the content - remove any wrapping code blocks
-        let cleanContent = blogContent.trim();
+        let blogContent = '';
+        let xCaption = '';
+        let xComment = '';
+        let fbCaption = '';
+        let fbComment = '';
+
+        if (fullResponse.includes('---SOCIAL-MEDIA-START---')) {
+            const parts = fullResponse.split('---SOCIAL-MEDIA-START---');
+            blogContent = parts[0].trim();
+            const socialPart = parts[1].trim();
+
+            const xcMatch = socialPart.match(/X-CAPTION:\s*([\s\S]*?)(?=\nX-COMMENT:|$)/i);
+            const xcoMatch = socialPart.match(/X-COMMENT:\s*([\s\S]*?)(?=\nFB-CAPTION:|$)/i);
+            const fbcMatch = socialPart.match(/FB-CAPTION:\s*([\s\S]*?)(?=\nFB-COMMENT:|$)/i);
+            const fbcoMatch = socialPart.match(/FB-COMMENT:\s*([\s\S]*)/i);
+
+            xCaption = xcMatch ? xcMatch[1].trim() : '';
+            xComment = xcoMatch ? xcoMatch[1].trim() : '';
+            fbCaption = fbcMatch ? fbcMatch[1].trim() : '';
+            fbComment = fbcoMatch ? fbcoMatch[1].trim() : '';
+        } else {
+            blogContent = fullResponse.trim();
+        }
+
+        // Clean the blog content - remove any wrapping code blocks
+        let cleanContent = blogContent;
         if (cleanContent.startsWith('```markdown')) {
             cleanContent = cleanContent.replace(/^```markdown\n?/, '').replace(/\n?```$/, '');
         }
@@ -207,6 +241,22 @@ Output the COMPLETE markdown file content.`;
         const slug = generateSlug(title);
         const fileName = `${today}-${slug}.md`;
         const filePath = path.join(BLOG_DIR, fileName);
+
+        // Inject the actual final slug into the Social Link templates if they use [slug]
+        xComment = xComment.replace(/\[slug\]/g, slug);
+        fbComment = fbComment.replace(/\[slug\]/g, slug);
+
+        // Save social media posts for future steps
+        if (xCaption) {
+            fs.writeFileSync(path.join('logs', 'x-caption.txt'), xCaption, 'utf8');
+            fs.writeFileSync(path.join('logs', 'x-comment.txt'), xComment, 'utf8');
+            console.log('   🐦 X content saved to logs/x-caption.txt and x-comment.txt');
+        }
+        if (fbCaption) {
+            fs.writeFileSync(path.join('logs', 'fb-caption.txt'), fbCaption, 'utf8');
+            fs.writeFileSync(path.join('logs', 'fb-comment.txt'), fbComment, 'utf8');
+            console.log('   📘 Facebook content saved to logs/fb-caption.txt and fb-comment.txt');
+        }
 
         // Post-processing: Force image fallback if AI skipped it
         const topImage = (topNews.find(n => n.image_url && n.image_url !== 'none') || topNews[0]).image_url;
@@ -229,7 +279,7 @@ Output the COMPLETE markdown file content.`;
             fs.mkdirSync(BLOG_DIR, { recursive: true });
         }
 
-        // Save the file
+        // Save the blog file
         fs.writeFileSync(filePath, cleanContent, 'utf8');
 
         console.log(`\n✅ SUCCESS! Blog post saved!`);
